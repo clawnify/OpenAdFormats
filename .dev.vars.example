@@ -1,0 +1,12 @@
+# Local dev secrets (git-ignored). When deployed on Clawnify these are injected
+# by the platform from your org's API Keys / Integrations settings.
+
+# Required — generates the per-format ad copy (OpenRouter).
+OPENROUTER_API_KEY=
+
+# Managed HTML->PNG render. Injected automatically on Clawnify; only needed
+# locally if you want real PNG renders instead of live HTML previews.
+# CLAWNIFY_TOKEN=
+
+# Optional — override the copy model (default anthropic/claude-sonnet-4).
+# AD_COPY_MODEL=

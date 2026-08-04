@@ -1,0 +1,29 @@
+{
+  "name": "open-ad-formats",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler d1 execute open-ad-formats-db --local --file=schema.sql && concurrently -n ui,api -c cyan,green \"vite\" \"wrangler dev --port 8787\"",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@clawnify/app": "^0.1.0",
+    "@clawnify/db": "^0.4.1",
+    "@tailwindcss/vite": "^4.2.2",
+    "lucide-react": "^0.469.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260722.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "concurrently": "^9.0.0",
+    "typescript": "^7.0.2",
+    "vite": "^6.0.0",
+    "wrangler": "^4.0.0"
+  }
+}
