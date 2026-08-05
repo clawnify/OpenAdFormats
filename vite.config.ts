@@ -15,6 +15,9 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    // Pinned so `pnpm dev` always prints the same URL as the README. Vite's
+    // own default (5173) moves between major versions.
+    port: 3000,
     proxy: {
       "/api": {
         target: "http://localhost:8787",

@@ -1,5 +1,12 @@
 # Open Ad Formats
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./readme-banner-dark.png">
+    <img alt="Open Ad Formats — the format library, showing 42 static Meta ad formats previewed live at real size" src="./readme-banner.png">
+  </picture>
+</p>
+
 **The open-source ad-creative studio for Meta.** Describe your product once, pick from **42 proven static ad formats**, and get a batch of on-brand, ready-to-upload PNGs — with the copy written *for* each layout instead of poured into it.
 
 Built with **React + Tailwind CSS + Hono + D1 + R2**. Deploys to Cloudflare Workers via [Clawnify](https://clawnify.com).

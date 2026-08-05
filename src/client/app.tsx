@@ -50,12 +50,23 @@ export default function App() {
     refreshBriefs().catch((e) => setError(String(e.message)));
   }, [refreshBriefs]);
 
-  // Agent mode: bigger targets, no hover-only affordances (see DESIGN.md).
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    // Agent mode: bigger targets, no hover-only affordances (see DESIGN.md).
     if (params.has("agent") || params.get("mode") === "agent") {
       document.documentElement.setAttribute("data-agent", "true");
     }
+    // The app follows the OS colour scheme by default. `?theme=light|dark`
+    // pins it — used for documentation screenshots and for checking both
+    // palettes without changing your system setting.
+    const theme = params.get("theme");
+    if (theme === "light" || theme === "dark") {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+    // Deep-link a view so an agent (or a doc screenshot) can land straight on
+    // the format library instead of having to click into it.
+    const v = params.get("view");
+    if (v === "briefs" || v === "formats" || v === "batch") setView(v);
   }, []);
 
   const NAV: Array<{ id: View; label: string; icon: typeof FileText }> = [
