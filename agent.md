@@ -1,4 +1,4 @@
-# Open Ad Formats — agent instructions
+# OpenAdFormats — agent instructions
 
 ## Division of labour
 

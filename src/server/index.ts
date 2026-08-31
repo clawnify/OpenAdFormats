@@ -35,7 +35,7 @@ type Bindings = {
 type Env = { Bindings: Bindings };
 
 const app = createApp<Env>({
-  title: "Open Ad Formats API",
+  title: "OpenAdFormats API",
   version: "1.0.0",
   description:
     "Generates on-brand Meta ad creative across 42 proven static formats. One brief in, a batch of rendered PNGs out — " +

@@ -1,4 +1,4 @@
--- Open Ad Formats — canonical schema.
+-- OpenAdFormats — canonical schema.
 --
 -- A BRIEF is the durable object: one product, its proof, its offer, its brand
 -- kit. A BATCH is one generation run against that brief (pick formats, pick a

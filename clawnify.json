@@ -1,6 +1,6 @@
 {
   "$schema": "https://app.clawnify.com/schema/v1/clawnify.json",
-  "name": "Open Ad Formats",
+  "name": "OpenAdFormats",
   "description": "Generates on-brand Meta ad creative across 42 proven static formats — iPhone Notes, Reddit thread, Us vs Them, tier lists, stat headlines and more. One brief in, a batch of ready-to-upload PNGs out, with the ad copy written for each layout rather than poured into it.",
   "icon": "icon.svg",
   "app": {
