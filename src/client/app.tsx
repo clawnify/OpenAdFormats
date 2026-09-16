@@ -1,3 +1,4 @@
+import { AppNav, embedded, reportLocation } from "@clawnify/app/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FileText, Grid2x2, Images, Plus, RefreshCw, Trash2, Upload } from "lucide-react";
 import {
@@ -36,6 +37,7 @@ export default function App() {
   const [activeBrief, setActiveBrief] = useState<BriefRow | null>(null);
   const [activeBatch, setActiveBatch] = useState<(BatchRow & { creatives: CreativeRow[] }) | null>(null);
   const [health, setHealth] = useState<{ copy: boolean; render: boolean; formats: number } | null>(null);
+  const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const refreshBriefs = useCallback(async () => {
@@ -47,7 +49,12 @@ export default function App() {
   useEffect(() => {
     api.formats().then(setFormats).catch((e) => setError(String(e.message)));
     api.health().then(setHealth).catch(() => {});
-    refreshBriefs().catch((e) => setError(String(e.message)));
+    const params = new URLSearchParams(window.location.search);
+    Promise.all([
+      refreshBriefs(),
+      params.get("brief") ? api.getBrief(params.get("brief")!).then(setActiveBrief) : undefined,
+      params.get("batch") ? api.getBatch(params.get("batch")!).then(setActiveBatch) : undefined,
+    ]).catch((e) => setError(String(e.message))).finally(() => setReady(true));
   }, [refreshBriefs]);
 
   useEffect(() => {
@@ -69,6 +76,18 @@ export default function App() {
     if (v === "briefs" || v === "formats" || v === "batch") setView(v);
   }, []);
 
+  useEffect(() => {
+    if (!ready) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("view", view);
+    url.searchParams.delete("brief");
+    url.searchParams.delete("batch");
+    if (activeBrief) url.searchParams.set("brief", activeBrief.id);
+    if (activeBatch) url.searchParams.set("batch", activeBatch.id);
+    window.history.replaceState(null, "", url);
+    reportLocation(url.pathname + url.search);
+  }, [ready, view, activeBrief?.id, activeBatch?.id]);
+
   const NAV: Array<{ id: View; label: string; icon: typeof FileText }> = [
     { id: "briefs", label: "Briefs", icon: FileText },
     { id: "formats", label: "Format library", icon: Grid2x2 },
@@ -77,7 +96,14 @@ export default function App() {
 
   return (
     <div className="flex h-full">
-      <aside className="hidden w-[16.25rem] shrink-0 flex-col border-r border-border bg-surface md:flex">
+      {embedded ? <AppNav title="Ad Formats" active={view} groups={[{ items: [
+        { id: "briefs", label: "Briefs", icon: "file-text", href: "/?view=briefs" },
+        { id: "formats", label: "Format library", icon: "layout-grid", href: "/?view=formats" },
+        { id: "batch", label: "Creatives", icon: "image", href: "/?view=batch" },
+      ] }]} onNavigate={(item) => {
+        if (item.id === "briefs") setActiveBrief(null);
+        setView(item.id as View);
+      }} /> : <aside className="hidden w-[16.25rem] shrink-0 flex-col border-r border-border bg-surface md:flex">
         <div className="flex h-14 items-center border-b border-border px-5">
           <span className="text-base font-bold tracking-[-0.01em]">Ad Formats</span>
         </div>
@@ -112,7 +138,7 @@ export default function App() {
             {health && !health.render ? <Badge tone="warning">No render token</Badge> : null}
           </div>
         </div>
-      </aside>
+      </aside>}
 
       <main className="flex min-w-0 flex-1 flex-col">
         {error ? (
