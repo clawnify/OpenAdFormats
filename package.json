@@ -8,13 +8,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@clawnify/app": "^0.1.0",
-    "@clawnify/db": "^0.4.1",
+    "@clawnify/app": "^0.2.1",
+    "@clawnify/db": "^0.4.2",
     "@tailwindcss/vite": "^4.2.2",
     "lucide-react": "^0.469.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "@phosphor-icons/react": "^2.1.10"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260722.1",
