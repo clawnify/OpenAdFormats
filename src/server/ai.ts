@@ -19,7 +19,7 @@ export interface AiEnv {
   AD_COPY_MODEL?: string;
 }
 
-const DEFAULT_MODEL = "anthropic/claude-sonnet-4";
+const DEFAULT_MODEL = "~anthropic/claude-sonnet-latest";
 
 const SYSTEM = `You are a senior direct-response copywriter who writes Meta ad creative.
 
