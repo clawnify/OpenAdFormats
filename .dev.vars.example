@@ -8,5 +8,5 @@ OPENROUTER_API_KEY=
 # locally if you want real PNG renders instead of live HTML previews.
 # CLAWNIFY_TOKEN=
 
-# Optional — override the copy model (default anthropic/claude-sonnet-4).
+# Optional — override the copy model (default ~anthropic/claude-sonnet-latest, the newest Claude Sonnet).
 # AD_COPY_MODEL=
