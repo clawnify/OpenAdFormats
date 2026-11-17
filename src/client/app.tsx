@@ -1,4 +1,4 @@
-import { AppNav, embedded, reportLocation } from "@clawnify/app/client";
+import { AppNav, reportLocation } from "@clawnify/app/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FileText, Grid2x2, Images, Plus, RefreshCw, Trash2, Upload } from "lucide-react";
 import {
@@ -96,14 +96,16 @@ export default function App() {
 
   return (
     <div className="flex h-full">
-      {embedded ? <AppNav title="Ad Formats" active={view} groups={[{ items: [
+      {/* One <AppNav>: inside Clawnify the dashboard draws this navigation, and
+          anywhere else the app's own sidebar below is drawn from it. */}
+      <AppNav title="Ad Formats" active={view} groups={[{ items: [
         { id: "briefs", label: "Briefs", icon: "file-text", href: "/?view=briefs" },
         { id: "formats", label: "Format library", icon: "layout-grid", href: "/?view=formats" },
         { id: "batch", label: "Creatives", icon: "image", href: "/?view=batch" },
       ] }]} onNavigate={(item) => {
         if (item.id === "briefs") setActiveBrief(null);
         setView(item.id as View);
-      }} /> : <aside className="hidden w-[16.25rem] shrink-0 flex-col border-r border-border bg-surface md:flex">
+      }} standalone={(nav) => <aside className="hidden w-[16.25rem] shrink-0 flex-col border-r border-border bg-surface md:flex">
         <div className="flex h-14 items-center border-b border-border px-5">
           <span className="text-base font-bold tracking-[-0.01em]">Ad Formats</span>
         </div>
@@ -138,7 +140,8 @@ export default function App() {
             {health && !health.render ? <Badge tone="warning">No render token</Badge> : null}
           </div>
         </div>
-      </aside>}
+        {nav.card && <div className="px-3 pb-3">{nav.card}</div>}
+      </aside>} />
 
       <main className="flex min-w-0 flex-1 flex-col">
         {error ? (
